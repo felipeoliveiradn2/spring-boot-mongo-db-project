@@ -1,5 +1,5 @@
 package com.felipeoliveira.mongodbproject.resources.exception;
-
+//essa classe é para retornar um erro 404 ao tentar retornar um ID invalido
 import java.io.Serializable;
 
 public class StandardError implements Serializable {
