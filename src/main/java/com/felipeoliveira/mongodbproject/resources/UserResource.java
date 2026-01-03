@@ -2,13 +2,10 @@ package com.felipeoliveira.mongodbproject.resources;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.felipeoliveira.mongodbproject.domain.User;
@@ -50,5 +47,17 @@ public class UserResource {
 		service.delete(id);
 		//noContent().build() irá retornar o código 204
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT) // get to obtain information in rest projects
+	public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id) {
+		User obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
+		obj.setId(id);
+		//esse comando URI vai pegar o novo endereço do objeto inserido 
+		obj = service.update(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		//created retorna o código 201, que é o código de retorno http quando você cria um novo recurso
+		return ResponseEntity.created(uri).build();
 	}
 }
