@@ -46,7 +46,6 @@ public class UserService {
 	    updateData(newObj, obj);
 	    return repo.save(newObj);
 	}
-
 	
 	private void updateData(User newObj, User obj) {
 		newObj.setName(obj.getName());
