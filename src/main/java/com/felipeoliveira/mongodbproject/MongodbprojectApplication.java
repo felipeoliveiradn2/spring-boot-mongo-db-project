@@ -8,6 +8,6 @@ public class MongodbprojectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MongodbprojectApplication.class, args);
+		
 	}
-
 }
