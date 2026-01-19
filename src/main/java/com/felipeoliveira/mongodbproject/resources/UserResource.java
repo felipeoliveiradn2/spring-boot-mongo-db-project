@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.felipeoliveira.mongodbproject.domain.Post;
 import com.felipeoliveira.mongodbproject.domain.User;
 import com.felipeoliveira.mongodbproject.dto.UserDTO;
 import com.felipeoliveira.mongodbproject.services.UserService;
@@ -60,4 +61,11 @@ public class UserResource {
 		//created retorna o código 201, que é o código de retorno http quando você cria um novo recurso
 		return ResponseEntity.created(uri).build();
 	}
+
+	@RequestMapping(value = "/{id}/posts", method = RequestMethod.GET) // get to obtain information in rest projects
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		User obj = service.findById(id);		
+		return ResponseEntity.ok().body(obj.getPosts());		
+	}	
+	
 }
