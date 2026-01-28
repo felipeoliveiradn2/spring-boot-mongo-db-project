@@ -1,10 +1,11 @@
 package com.felipeoliveira.mongodbproject.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.felipeoliveira.mongodbproject.domain.Post;
-import com.felipeoliveira.mongodbproject.domain.User;
 import com.felipeoliveira.mongodbproject.repository.PostRepository;
 import com.felipeoliveira.mongodbproject.services.exception.ObjectNotFoundException;
 
@@ -15,9 +16,13 @@ public class PostService {
 	private PostRepository repo;
 	
 	//método findById que irá retornar o usuário recebendo o string id como argumento
-
 	public Post findById(String id) {
 	    return repo.findById(id)
-	        .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+	        .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));		
 	}
+	
+	public List<Post> findByTitle(String text) {
+		return repo.searchTitle(text);		
+	}
+		
 }
